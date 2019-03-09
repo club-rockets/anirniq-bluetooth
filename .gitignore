@@ -1,0 +1,19 @@
+# Binaries
+build/
+bin/
+*.o
+*.elf
+*.elf.launch
+*.hex
+*.bin
+*.map
+
+## IDEs
+# TrueStudio & STM32
+.settings/
+.mxproject
+.project
+.cproject
+
+# VS Code
+.vscode/
