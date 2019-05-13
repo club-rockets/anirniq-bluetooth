@@ -65,8 +65,15 @@ void BleApp_Start(void);
 void BleApp_GenericCallback (gapGenericEvent_t* pGenericEvent);
 
 void chargesInit();
-void chargesEnable();
-void chargesDisable();
+
+void chargesDrogueEnable();
+void chargesMainEnable();
+void chargesVenEnable();
+
+void chargesDrogueDisable();
+void chargesMainDisable();
+void chargesVenDisable();
+
 
 #ifdef __cplusplus
 }

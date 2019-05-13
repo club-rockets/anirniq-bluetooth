@@ -66,7 +66,10 @@ static bool_t      mRestartAdv;
 static uint32_t    mAdvTimeout;
 static deviceId_t  mPeerDeviceId = gInvalidDeviceId_c;
 
-static uint16_t chargesHandles[1] = { charges_enable_value };
+static uint16_t chargesHandles[] = {
+		chargesDrogue_Enable_value,
+		chargesMain_Enable_value,
+		Ven_Enable_value};
 
 /* Application specific data*/
 static tmrTimerID_t mAdvTimerId;
@@ -428,18 +431,44 @@ static void BleApp_GattServerCallback (deviceId_t deviceId, gattServerEvent_t* p
         {
         	handle = pServerEvent->eventData.attributeWrittenEvent.handle;
 			status = gAttErrCodeNoError_c;
-			if(handle == charges_enable_value){
+			if(handle == chargesDrogue_Enable_value){
 				if(pServerEvent->eventData.attributeWrittenEvent.aValue[0] == 0xAA)
 				{
-					chargesEnable();
+					chargesDrogueEnable();
 					vals[0] = 0x01;
 				}
 				else
 				{
-					chargesDisable();
+					chargesDrogueDisable();
 					vals[0] = 0x00;
 				}
-				status = GattDb_WriteAttribute(charges_state_value, 1, vals);
+				status = GattDb_WriteAttribute(chargesDrogue_state_value, 1, vals);
+			}
+			else if(handle == chargesMain_Enable_value){
+				if(pServerEvent->eventData.attributeWrittenEvent.aValue[0] == 0xAA)
+				{
+					chargesMainEnable();
+					vals[0] = 0x01;
+				}
+				else
+				{
+					chargesMainDisable();
+					vals[0] = 0x00;
+				}
+				status = GattDb_WriteAttribute(chargesMain_state_value, 1, vals);
+			}
+			else if(handle == Ven_Enable_value){
+				if(pServerEvent->eventData.attributeWrittenEvent.aValue[0] == 0xAA)
+				{
+					chargesVenEnable();
+					vals[0] = 0x01;
+				}
+				else
+				{
+					chargesVenDisable();
+					vals[0] = 0x00;
+				}
+				status = GattDb_WriteAttribute(Ven_state_value, 1, vals);
 			}
 
         }
@@ -514,22 +543,29 @@ void chargesInit(){
 	GPIO_PinInit(GPIOA, 19, &conf);
 }
 
-void chargesEnable(){
-
-
+void chargesDrogueEnable(){
   //droge mcu
 	GPIO_WritePinOutput(GPIOA, 17, 1);
+}
+void chargesMainEnable(){
 	//main mcu
 	GPIO_WritePinOutput(GPIOA, 18, 1);
+}
+void chargesVenEnable(){
 	//pwEn
 	GPIO_WritePinOutput(GPIOA, 19, 0);
 }
 
-void chargesDisable(){
+
+void chargesDrogueDisable(){
 	//droge mcu
 	GPIO_WritePinOutput(GPIOA, 17, 0);
+}
+void chargesMainDisable(){
 	//main mcu
 	GPIO_WritePinOutput(GPIOA, 18, 0);
+}
+void chargesVenDisable(){
 	//pwEn
 	GPIO_WritePinOutput(GPIOA, 19, 1);
 }

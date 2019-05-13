@@ -65,8 +65,8 @@ static const gapAdStructure_t advScanStruct[3] = {
   },  
   {
     .adType = gAdShortenedLocalName_c,
-    .length = 8,
-    .aData = (uint8_t*)"ANIRNIQ"
+    .length = 10,
+    .aData = (uint8_t*)"ANIRNIQ_1"
   }  
 };
 
