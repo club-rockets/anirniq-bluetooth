@@ -17,3 +17,5 @@ bin/
 
 # VS Code
 .vscode/
+
+Debug/
