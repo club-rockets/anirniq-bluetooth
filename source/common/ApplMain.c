@@ -58,6 +58,7 @@
 
 #include "ApplMain.h"
 
+#include "charges.h"
 
 #if gAppUseNvm_d
 /* include NVM interface */

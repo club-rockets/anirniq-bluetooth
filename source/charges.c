@@ -537,10 +537,14 @@ void chargesInit(){
 	GPIO_PinInit(GPIOA, 17, &conf);
 	//main Mcu
 	GPIO_PinInit(GPIOA, 18, &conf);
-
+#ifdef BOARD_STRATO
+	conf.outputLogic = 0;
+	GPIO_PinInit(GPIOA, 19, &conf);
+#else
 	//pw en
 	conf.outputLogic = 1;
 	GPIO_PinInit(GPIOA, 19, &conf);
+#endif
 }
 
 void chargesDrogueEnable(){
@@ -553,7 +557,11 @@ void chargesMainEnable(){
 }
 void chargesVenEnable(){
 	//pwEn
+#ifdef BOARD_STRATO
+	GPIO_WritePinOutput(GPIOA, 19, 1);
+#else
 	GPIO_WritePinOutput(GPIOA, 19, 0);
+#endif
 }
 
 
@@ -567,5 +575,9 @@ void chargesMainDisable(){
 }
 void chargesVenDisable(){
 	//pwEn
+#ifdef BOARD_STRATO
+	GPIO_WritePinOutput(GPIOA, 19, 0);
+#else
 	GPIO_WritePinOutput(GPIOA, 19, 1);
+#endif
 }

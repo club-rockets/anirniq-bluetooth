@@ -20,6 +20,19 @@
 /*! *********************************************************************************
  * 	Board Configuration
  ********************************************************************************** */
+/* Board type ANIRNIQ or STRATO*/
+
+//#define BOARD_STRATO
+#define BOARD_ANIRNIQ
+
+#ifdef BOARD_STRATO
+#ifdef BOARD_ANIRNIQ
+
+#error too_many_boards!!!
+
+#endif
+#endif
+
  /* Defines the number of available keys for the keyboard module */
 #define gKBD_KeysCount_c        2
 
